@@ -34,7 +34,6 @@ import { HomeComponent } from './pages/home/home.component';
 import { AboutComponent } from './pages/about/about.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { DonateComponent } from './pages/donate/donate.component';
-import { ThemePickerComponent } from './shared/theme-picker/theme-picker';
 
 //Shared
 import { NavbarComponent } from './shared/navbar/navbar.component';
@@ -49,6 +48,7 @@ import { AppRoutingModule } from './app-routing.module';
 
 import { Wallet } from './shared/classes/wallet';
 import { HistoryComponent } from './pages/history/history.component';
+import { ThemePickerComponent } from './shared/theme-picker/theme-picker';
 
 
 @NgModule({
@@ -60,6 +60,7 @@ import { HistoryComponent } from './pages/history/history.component';
     DashboardComponent,
     DonateComponent,
     HistoryComponent,
+    ThemePickerComponent,
   ],
   imports: [
     BrowserModule,

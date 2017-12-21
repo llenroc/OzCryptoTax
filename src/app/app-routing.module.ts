@@ -20,7 +20,6 @@ const routes: Routes = [
         path:'dashboard',
         component: DashboardComponent
     },
-    ,
     {
         path: 'donate',
         component: DonateComponent
@@ -28,7 +27,7 @@ const routes: Routes = [
     {
         path: 'history',
         component: HistoryComponent
-    },
+    }
 ];
 
 @NgModule({

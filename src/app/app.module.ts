@@ -6,7 +6,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpModule } from '@angular/http';
 import { NgModule, Injectable } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import {
   MatButtonModule,
@@ -26,6 +26,9 @@ import {
   MatLineModule,
   MatTooltipModule,
   MatTabsModule,
+  MatDatepickerModule,
+  MatNativeDateModule,
+  MatStepperModule,
 } from '@angular/material';
 
 
@@ -49,6 +52,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { Wallet } from './shared/classes/wallet';
 import { HistoryComponent } from './pages/history/history.component';
 import { ThemePickerComponent } from './shared/theme-picker/theme-picker';
+import { HelpComponent } from './pages/help/help.component';
 
 
 @NgModule({
@@ -61,6 +65,7 @@ import { ThemePickerComponent } from './shared/theme-picker/theme-picker';
     DonateComponent,
     HistoryComponent,
     ThemePickerComponent,
+    HelpComponent,
   ],
   imports: [
     BrowserModule,
@@ -85,6 +90,10 @@ import { ThemePickerComponent } from './shared/theme-picker/theme-picker';
     MatLineModule,
     MatTooltipModule,
     MatTabsModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatStepperModule,
+    ReactiveFormsModule,
   ],
   providers: [
     ElectronService,

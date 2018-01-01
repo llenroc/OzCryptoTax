@@ -3,6 +3,7 @@ import { AboutComponent } from './pages/about/about.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { DonateComponent } from './pages/donate/donate.component';
 import { HistoryComponent } from './pages/history/history.component';
+import { HelpComponent } from 'app/pages/help/help.component';
 
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
@@ -27,6 +28,10 @@ const routes: Routes = [
     {
         path: 'history',
         component: HistoryComponent
+    },
+    {
+        path: 'help',
+        component: HelpComponent
     }
 ];
 

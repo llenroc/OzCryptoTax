@@ -1,3 +1,86 @@
+<button matTooltip="Add Capital Gain Event" (click)="addEvent()" mat-fab color="accent" class="mat-fab mat-fab-bottom-right">
+  <mat-icon>add</mat-icon>
+</button>
 
-<button matTooltip="Add Capital Gain Event" mat-fab color="accent" class="mat-fab mat-fab-bottom-right"><mat-icon >add</mat-icon></button>
+<mat-card class="full-card">
+  <mat-form-field hintLabel="All your earnings minus crypto related capital gain events">
+    <input matInput placeholder="Earnings">
+  </mat-form-field>
+</mat-card>
 
+
+<mat-card class="full-card" *ngFor="let event of events">
+
+  <mat-horizontal-stepper>
+    <mat-step label="Purchase details">
+      <div>
+        <div class="example-container">
+          <mat-form-field hintLabel="Cost of 1 bitcoin at time of purchase">
+            <input [(ngModel)]="event.purchaseCost" matInput placeholder="Individual purchase cost">
+          </mat-form-field>
+
+          <mat-form-field hintLabel="Amount of bitcoin purchased">
+            <input [(ngModel)]="event.quantityPurchased" matInput placeholder="Quantity purchased">
+          </mat-form-field>
+
+          <mat-form-field hintLabel="Date Purchased">
+            <input matInput [(ngModel)]="event.dateBought" [matDatepicker]="pickerBought" placeholder="Choose a date">
+            <mat-datepicker-toggle matSuffix [for]="pickerBought"></mat-datepicker-toggle>
+            <mat-datepicker #pickerBought></mat-datepicker>
+          </mat-form-field>
+        </div>
+
+        <div>
+          <button mat-button matStepperNext>Next</button>
+        </div>
+      </div>
+    </mat-step>
+
+    <mat-step label="Sell details">
+      <div>
+        <div class="example-container">
+          <mat-form-field hintLabel="Cost of 1 bitcoin at time of sale">
+            <input [(ngModel)]="event.purchaseCost" matInput placeholder="Individual purchase cost">
+          </mat-form-field>
+
+          <mat-form-field hintLabel="Amount of bitcoin sold">
+            <input [(ngModel)]="event.quantitySold" matInput placeholder="Quantity sold">
+          </mat-form-field>
+
+          <mat-form-field hintLabel="Date Sold">
+            <input matInput [(ngModel)]="event.dateSold" [matDatepicker]="pickerSold" placeholder="Choose a date">
+            <mat-datepicker-toggle matSuffix [for]="pickerSold"></mat-datepicker-toggle>
+            <mat-datepicker #pickerSold></mat-datepicker>
+          </mat-form-field>
+        </div>
+        <div>
+          <button mat-button matStepperPrevious>Back</button>
+          <button mat-button matStepperNext>Next</button>
+        </div>
+      </div>
+    </mat-step>
+
+    <mat-step label="Resulting Capital Gain">
+      <div>
+        <div class="example-container">
+          <mat-form-field hintLabel="Remaining">
+            <input matInput [(ngModel)]="event.remainingCoins" disabled="disabled" placeholder="Remaining">
+          </mat-form-field>
+
+          <mat-form-field hintLabel="Capital gain">
+            <input matInput [(ngModel)]="event.capitalGain" disabled="disabled" placeholder="Gain">
+          </mat-form-field>
+        </div>
+        <div>
+          <button mat-button matStepperPrevious>Back</button>
+        </div>
+      </div>
+    </mat-step>
+  </mat-horizontal-stepper>
+</mat-card>
+
+<mat-card class="full-card">
+  <mat-form-field hintLabel="Taxable income">
+    <input matInput [(ngModel)]="taxableIncome" disabled="disabled" placeholder="Gain">
+  </mat-form-field>
+</mat-card>

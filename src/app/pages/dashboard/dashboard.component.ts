@@ -11,16 +11,59 @@ import {
 
 export class DashboardComponent implements OnInit {
   public dashboard: any;
-  public expanded: boolean = false;
-  public taxableIncome: number;
-  public linear: boolean = true;
+  public taxBrackets: TaxBracket[] = [];
 
   public capitalGains: CapitalGains = new CapitalGains();
 
 
-  constructor() {}
+  constructor() {
+    this.setupTaxBrackets();
+  }
 
-  ngOnInit() {}
+  ngOnInit() { }
+
+  //A crappy way to add the array
+  private setupTaxBrackets() {
+    var tb1 = new TaxBracket();
+    tb1.taxableIncome = "0 – $18,200";
+    tb1.taxOnThisIncome = "Nil";
+    tb1.taxPerDollar = 0;
+    tb1.baseTaxCost = 0;
+
+    this.taxBrackets.push(tb1);
+    
+    var tb2 = new TaxBracket();
+    tb2.taxableIncome = "$18,201 – $37,000";
+    tb2.taxOnThisIncome = "19c for each $1 over $18,200";
+    tb2.taxPerDollar = 19;
+    tb2.baseTaxCost = 0;
+
+    this.taxBrackets.push(tb2);
+
+    var tb3 = new TaxBracket();
+    tb3.taxableIncome = "$37,001 – $87,000";
+    tb3.taxOnThisIncome = "$3,572 plus 32.5c for each $1 over $37,000";
+    tb3.taxPerDollar = 32.5;
+    tb3.baseTaxCost = 3572;
+
+    this.taxBrackets.push(tb3);
+
+    var tb4 = new TaxBracket();
+    tb4.taxableIncome = "$87,001 – $180,000";
+    tb4.taxOnThisIncome = "$19,822 plus 37c for each $1 over $87,000";
+    tb4.taxPerDollar = 37;
+    tb4.baseTaxCost = 19822;
+
+    this.taxBrackets.push(tb4);
+
+    var tb5 = new TaxBracket();
+    tb5.taxableIncome = "$180,001 and over";
+    tb5.taxOnThisIncome = "$54,232 plus 45c for each $1 over $180,000";
+    tb5.taxPerDollar = 45;
+    tb5.baseTaxCost = 54232;
+
+    this.taxBrackets.push(tb5);
+  }
 
   public addEvent() {
     this.capitalGains.events.push(new CapitalGainEvent());
@@ -70,7 +113,9 @@ export class DashboardComponent implements OnInit {
 }
 
 export class CapitalGains {
-  public income: any;
+  public income: number;
+  public taxBracketOverride: boolean;
+  public taxBracket: TaxBracket;
   public events: CapitalGainEvent[] = [new CapitalGainEvent()];
 }
 
@@ -78,7 +123,20 @@ export class CapitalGainEvent {
   public bought: PurchaseSellDetails = new PurchaseSellDetails();
   public sold: PurchaseSellDetails = new PurchaseSellDetails();
   public result: ResultingEvent = new ResultingEvent();
+}
 
+export class TaxBracket {
+  public taxableIncome: string;
+  public taxOnThisIncome: string;
+  public baseTaxCost: number;
+  public taxPerDollar: number;
+
+  public TaxBracket(ti: string, toti: string, btc: number, tpd: number) {
+    this.taxableIncome = ti;
+    this.taxOnThisIncome =toti;
+    this.baseTaxCost = btc;
+    this.taxPerDollar = tpd;
+  }
 }
 
 export class PurchaseSellDetails {

@@ -9,8 +9,21 @@
     </mat-card-header>
     <div class="example-container">
         <mat-form-field hintLabel="Enter your earnings">
-            <input type="number" matInput [(ngModel)]="capitalGains.earnings" placeholder="Earnings">
+            <input [disabled]="capitalGains.taxBracketOverride" type="number" matInput [(ngModel)]="capitalGains.earnings" placeholder="Earnings">
             <mat-icon matTooltip="This will be used to calulate your taxation rate" matSuffix>help_outline</mat-icon>
+        </mat-form-field>
+
+    </div>
+    <div class="example-container">
+        <mat-checkbox [(ngModel)]="capitalGains.taxBracketOverride">I don't know my earnings yet, let me choose a tax bracket</mat-checkbox>
+    </div>
+    <div class="example-container">
+        <mat-form-field>
+            <mat-select placeholder="Tax Bracket" [disabled]="!capitalGains.taxBracketOverride">
+                <mat-option *ngFor="let brack of taxBrackets" [(value)]="brack.taxableIncome">
+                    {{brack.taxableIncome}} : {{ brack.taxOnThisIncome }}
+                </mat-option>
+            </mat-select>
         </mat-form-field>
     </div>
 </mat-card>

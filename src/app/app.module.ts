@@ -29,6 +29,7 @@ import {
   MatDatepickerModule,
   MatNativeDateModule,
   MatStepperModule,
+  MatSelectModule,
 } from '@angular/material';
 
 
@@ -94,6 +95,7 @@ import { HelpComponent } from './pages/help/help.component';
     MatNativeDateModule,
     MatStepperModule,
     ReactiveFormsModule,
+    MatSelectModule,
   ],
   providers: [
     ElectronService,

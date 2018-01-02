@@ -1,28 +1,59 @@
-import {Component, OnInit }from '@angular/core'; 
+import {
+  Component,
+  OnInit
+} from '@angular/core';
 
-@Component( {
-selector:'app-dashboard', 
-templateUrl:'./dashboard.component.html', 
-styleUrls:['./dashboard.component.scss'], 
+@Component({
+  selector: 'app-dashboard',
+  templateUrl: './dashboard.component.html',
+  styleUrls: ['./dashboard.component.scss'],
 })
 
 export class DashboardComponent implements OnInit {
-public dashboard:any;
-public expanded:boolean = false;
-public events:any[] = [];
-public taxableIncome:number;
+  public dashboard: any;
+  public expanded: boolean = false;
+  public taxableIncome: number;
+  public linear: boolean = true;
 
-constructor() {
+  public capitalGains: CapitalGains;
+
+
+  constructor() {}
+
+  ngOnInit() {
+      this.capitalGains = new CapitalGains();
+  }
+
+  public addEvent() {
+    this.capitalGains.events.push(new CapitalGainEvent());
+  }
+
+  public removeEvent(event: any) {
+    this.capitalGains.events.splice(this.capitalGains.events.indexOf(event), 1);
+  }
+
 }
 
-ngOnInit() {
+export class CapitalGains {
+    public income:any;
+    public events:CapitalGainEvent[] = [new CapitalGainEvent()];
 }
 
-public addEvent() {
-    this.events.push({});
+export class CapitalGainEvent {
+    public bought:PurchaseSellDetails;
+    public sold:PurchaseSellDetails;
+    public result:ResultingEvent;
+
 }
 
-
+export class PurchaseSellDetails {
+    public singleCost:number;
+    public quantity:number;
+    public date:Date;
 }
 
-
+export class ResultingEvent {
+    public remaining:number;
+    public gain:number;
+    public taxableGain:number;
+}

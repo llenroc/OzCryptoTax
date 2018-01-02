@@ -116,6 +116,8 @@ export class CapitalGains {
   public income: number;
   public taxBracketOverride: boolean;
   public taxBracket: TaxBracket;
+  public earnings: number;
+  public taxableIncome: number;
   public events: CapitalGainEvent[] = [new CapitalGainEvent()];
 }
 
@@ -130,13 +132,6 @@ export class TaxBracket {
   public taxOnThisIncome: string;
   public baseTaxCost: number;
   public taxPerDollar: number;
-
-  public TaxBracket(ti: string, toti: string, btc: number, tpd: number) {
-    this.taxableIncome = ti;
-    this.taxOnThisIncome =toti;
-    this.baseTaxCost = btc;
-    this.taxPerDollar = tpd;
-  }
 }
 
 export class PurchaseSellDetails {

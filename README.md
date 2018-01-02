@@ -1,13 +1,15 @@
 ## OzCryptoTax website
 A website to do basic calculations for Australian tax when it comes to cryptocurrencies. It is developed with Angular 5 with support for Electron
 
-## This is still in active development
+You can visit it here: https://www.ozcrypto.tax/
 
+## This is still in active development
+You can follow along with development on the trello: https://trello.com/b/AVPgzFWT/ozcryptotax
 
 ## Current Features
-+ It can't run
++ It can run
 + Angular 5
-+ Electron
++ Electron support
 + Material Design
 
  
@@ -25,7 +27,7 @@ npm install -g @angular/cli
 ```
 
 ## To build for development
-npm run web:start
+npm run start:web
 
 Voila! You can use OzCryptoTax web app in a local development environment with webpack watching!
 

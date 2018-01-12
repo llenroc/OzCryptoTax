@@ -30,6 +30,7 @@ import {
   MatNativeDateModule,
   MatStepperModule,
   MatSelectModule,
+  MatTableModule,
 } from '@angular/material';
 
 
@@ -54,6 +55,7 @@ import { Wallet } from './shared/classes/wallet';
 import { HistoryComponent } from './pages/history/history.component';
 import { ThemePickerComponent } from './shared/theme-picker/theme-picker';
 import { HelpComponent } from './pages/help/help.component';
+
 
 
 @NgModule({
@@ -96,6 +98,7 @@ import { HelpComponent } from './pages/help/help.component';
     MatStepperModule,
     ReactiveFormsModule,
     MatSelectModule,
+    MatTableModule,
   ],
   providers: [
     ElectronService,

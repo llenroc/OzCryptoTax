@@ -259,35 +259,44 @@
 
 </mat-card>
 
-<div class="mat-table">
-  <div class="mat-header-row">
-    <div class="mat-header-cell">One</div>
-    <div class="mat-header-cell">Two</div>
-    <div class="mat-header-cell">Three</div>
-  </div>
-  <div class="mat-row">
-    <div class="mat-cell">Tick</div>
-    <div class="mat-cell">Trick</div>
-    <div class="mat-cell">Track</div>
-  </div>
-  <div class="mat-row">
-    <div class="mat-cell">Tick</div>
-    <div class="mat-cell">Trick</div>
-    <div class="mat-cell">Track</div>
-  </div>
-</div>
+
 
 <mat-accordion *ngIf="capitalGains.totalGains.isValid">
-  <mat-expansion-panel>
+  <mat-expansion-panel [expanded]="true">
     <mat-expansion-panel-header>
       <mat-panel-title>
         Detailed breakdown
       </mat-panel-title>
     </mat-expansion-panel-header>
 
-  
-    <div class="example-container">
-
+    <div class="mat-table">
+      <div class="mat-header-row">
+        <div class="mat-header-cell">Date Bought</div>
+        <div class="mat-header-cell">Amount Purchased</div>
+        <div class="mat-header-cell">Purchase cost each</div>
+        <div class="mat-header-cell">Purchase cost total</div>
+        <div class="mat-header-cell">Date Sold</div>
+        <div class="mat-header-cell">Amount Sold</div>
+        <div class="mat-header-cell">Sell cost each</div>
+        <div class="mat-header-cell">Sell cost total</div>
+        <div class="mat-header-cell">Remaining</div>
+        <div class="mat-header-cell">Capital Gain Discount</div>
+        <div class="mat-header-cell">Capital Gain Amount</div>
+      </div>
+      <div class="mat-row" *ngFor="let event of capitalGains.events">
+        <div class="mat-cell">{{event.bought.date}}</div>
+        <div class="mat-cell">{{event.bought.quantity}}</div>
+        <div class="mat-cell">{{event.bought.singleCost}}</div>
+        <div class="mat-cell">{{event.bought.singleCost * event.bought.quantity}}</div>
+        <div class="mat-cell">{{event.sold.date}}</div>
+        <div class="mat-cell">{{event.sold.quantity}}</div>
+        <div class="mat-cell">{{event.sold.singleCost}}</div>
+        <div class="mat-cell">{{event.sold.singleCost * event.bought.quantity}}</div>
+        <div class="mat-cell">{{event.result.remaining}}</div>
+        <div class="mat-cell">{{event.result.discount}}</div>
+        <div class="mat-cell">{{event.result.taxableGain}}</div>
+        
+      </div>
     </div>
 
   </mat-expansion-panel>

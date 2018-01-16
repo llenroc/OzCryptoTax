@@ -1,28 +1,32 @@
 import {
   Component,
-  OnInit
+  OnInit,
+  ViewChild
 } from '@angular/core';
 import {DataSource} from '@angular/cdk/collections';
 import {Observable} from 'rxjs/Observable';
 import 'rxjs/add/observable/of';
 
 
+
 @Component({
-  selector: 'app-dashboard',
-  templateUrl: './dashboard.component.html',
-  styleUrls: ['./dashboard.component.scss'],
+  selector: 'app-calculator',
+  templateUrl: './calculator.component.html',
+  styleUrls: ['./calculator.component.scss'],
 })
 
-export class DashboardComponent implements OnInit {
+export class CalculatorComponent implements OnInit {
   public dashboard: any;
   public taxBrackets: TaxBracket[] = [];
   public capitalGains: CapitalGains = new CapitalGains();
+  public loadedFromStorage: boolean = false;
 
 
   constructor() {
     this.setupTaxBrackets();
     this.capitalGains.earnings = 0;
     this.setTaxBracket(0);
+    this.getCapitalGains();
   }
 
   ngOnInit() {}
@@ -107,6 +111,7 @@ export class DashboardComponent implements OnInit {
   }
 
   public calculateIndividualResultingEvent(event: CapitalGainEvent) {
+
     if (event.bought.date &&
       event.bought.quantity &&
       event.bought.singleCost &&
@@ -134,6 +139,8 @@ export class DashboardComponent implements OnInit {
 
       event.result.remaining = event.bought.quantity - event.sold.quantity;
       event.result.isValid = true;
+    this.setCapitalGains();
+      
 
     } else {
       event.result.gain = -1;
@@ -143,6 +150,21 @@ export class DashboardComponent implements OnInit {
     }
   }
 
+  public setCapitalGains() {
+    localStorage.setItem('capitalGains', JSON.stringify(this.capitalGains));
+  }
+
+  public getCapitalGains() {
+    var gains: CapitalGains = JSON.parse(localStorage.getItem('capitalGains'));
+    if (gains)
+    {
+      this.loadedFromStorage = true;
+      this.capitalGains = gains;
+      for (var i = 0; i < this.capitalGains.events.length; i++) {
+        this.calculateIndividualResultingEvent(this.capitalGains.events[i]);
+      }
+    }  
+  }
 
   public calculateAllEvents() {
 
@@ -177,17 +199,17 @@ export class DashboardComponent implements OnInit {
 
       if (this.capitalGains.totalGains.isValid) {
         this.setTaxBracket(taxableIncome);
-
         this.capitalGains.totalGains.taxableIncome = taxableIncome;
         this.capitalGains.totalGains.income = income;
         this.capitalGains.totalGains.gainDiscounts = capitalGainDiscounts;
         this.capitalGains.totalGains.gains = capitalGains;
         this.capitalGains.totalGains.spareCoins = spareCoins;
         this.capitalGains.totalGains.tax = ((taxableIncome - this.capitalGains.taxBracket.taxLevelWithCalculation) * this.capitalGains.taxBracket.taxPerDollar) + this.capitalGains.taxBracket.baseTaxCost;
+    this.setCapitalGains();
       }
     }
   }
-}
+} 
 
 export class FinalResult {
   public spareCoins: number;
@@ -213,6 +235,7 @@ export class CapitalGains {
 }
 
 export class CapitalGainEvent {
+  public id: number;
   public bought: PurchaseSellDetails = new PurchaseSellDetails();
   public sold: PurchaseSellDetails = new PurchaseSellDetails();
   public result: ResultingEvent = new ResultingEvent();

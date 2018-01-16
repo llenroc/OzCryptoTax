@@ -3,7 +3,7 @@
 <mat-sidenav-container class="container ">
     <mat-sidenav #sidenav mode="side" class="sidebar" opened="true">
         <mat-nav-list>
-            <mat-list-item routerLink="dashboard" routerLinkActive="dashboard-highlight">
+            <mat-list-item routerLink="calculator" routerLinkActive="calculator-highlight">
                 <mat-icon>account_balance</mat-icon>&nbsp;
                 <h3>Calculator</h3>
             </mat-list-item>
@@ -30,5 +30,7 @@
             </mat-list-item>
         </mat-nav-list>
     </mat-sidenav>
-    <router-outlet class="main"></router-outlet>
+    <div class="main">
+        <router-outlet class="main-block"></router-outlet>
+    </div>
 </mat-sidenav-container>

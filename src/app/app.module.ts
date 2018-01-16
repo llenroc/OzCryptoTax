@@ -37,7 +37,7 @@ import {
 import { AppComponent } from './app.component';
 import { HomeComponent } from './pages/home/home.component';
 import { AboutComponent } from './pages/about/about.component';
-import { DashboardComponent } from './pages/dashboard/dashboard.component';
+import { CalculatorComponent } from './pages/calculator/calculator.component';
 import { DonateComponent } from './pages/donate/donate.component';
 
 //Shared
@@ -56,7 +56,7 @@ import { HistoryComponent } from './pages/history/history.component';
 import { ThemePickerComponent } from './shared/theme-picker/theme-picker';
 import { HelpComponent } from './pages/help/help.component';
 
-
+ 
 
 @NgModule({
   declarations: [
@@ -64,7 +64,7 @@ import { HelpComponent } from './pages/help/help.component';
     HomeComponent,
     AboutComponent,
     NavbarComponent,
-    DashboardComponent,
+    CalculatorComponent,
     DonateComponent,
     HistoryComponent,
     ThemePickerComponent,

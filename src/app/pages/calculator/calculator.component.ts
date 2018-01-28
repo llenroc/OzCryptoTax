@@ -47,52 +47,16 @@ export class CalculatorComponent implements OnInit {
 
   constructor() {
     this.capitalGains.earnings = 0;
+
     this.getCapitalGains();
+    this.capitalGains.taxBrackets = new TaxBrackets();
     if (!this.capitalGains) {
       this.capitalGains = new CapitalGains();
     }
-    if (this.capitalGains.isValid) {
-      this.setTaxBracket(this.capitalGains.taxableIncome);
-    } else if (this.capitalGains.earnings > 0) {
-      this.setTaxBracket(this.capitalGains.earnings);
-    }
+      this.capitalGains.setTaxBracket();
   }
 
   ngOnInit() {}
-
-  public setTaxBracket(earnings: number) {
-    this.taxBracketsObj.setupTaxBrackets();
-    if (earnings <= 18200) {
-      this.capitalGains.select = this.taxBracketsObj.taxBrackets[0].taxableIncome;
-      this.capitalGains.taxBracket = this.taxBracketsObj.taxBrackets[0];
-    } else if (earnings > 18200 && earnings <= 37000) {
-      this.capitalGains.select = this.taxBracketsObj.taxBrackets[1].taxableIncome;
-      this.capitalGains.taxBracket = this.taxBracketsObj.taxBrackets[1];
-    } else if (earnings > 37000 && earnings <= 87000) {
-      this.capitalGains.select = this.taxBracketsObj.taxBrackets[2].taxableIncome;
-      this.capitalGains.taxBracket = this.taxBracketsObj.taxBrackets[2];
-    } else if (earnings > 87000 && earnings <= 180000) {
-      this.capitalGains.select = this.taxBracketsObj.taxBrackets[3].taxableIncome;
-      this.capitalGains.taxBracket = this.taxBracketsObj.taxBrackets[3];
-    } else if (earnings > 180000) {
-      this.capitalGains.select = this.taxBracketsObj.taxBrackets[4].taxableIncome;
-      this.capitalGains.taxBracket = this.taxBracketsObj.taxBrackets[4];
-    }
-  }
-
-  public addEvent() {
-    this.capitalGains.events.push(new CapitalGainEvent());
-  }
-
-  public removeEvent(event: any) {
-    this.capitalGains.events.splice(this.capitalGains.events.indexOf(event), 1);
-  }
-
-  public calculateAllEvents() {
-    this.capitalGains.calculateAllEvents();
-    this.setTaxBracket(this.capitalGains.taxableIncome);
-    this.setCapitalGains();
-  }
 
   public setCapitalGains() {
     localStorage.setItem('capitalGains', JSON.stringify(this.capitalGains));
@@ -118,8 +82,9 @@ export class CalculatorComponent implements OnInit {
 
     if (this.capitalGains) {
       this.loadedFromStorage = true;
+      this.capitalGains.events = <Array<CapitalGainEvent>>this.capitalGains.events;
       for (var i = 0; i < this.capitalGains.events.length; i++) {
-        this.capitalGains.events[i].calculateIndividualResultingEvent();
+        this.capitalGains.calculateIndividualResultingEvent(this.capitalGains.events[i])
       }
     } else {
       this.loadedFromStorage = false;

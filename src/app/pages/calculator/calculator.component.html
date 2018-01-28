@@ -1,5 +1,5 @@
 <div class="content-container">
-    <button matTooltip="Add Capital Gain Event" (click)="addEvent()" mat-fab color="accent" class="mat-fab mat-fab-bottom-right">
+    <button matTooltip="Add Capital Gain Event" (click)="capitalGains.addEvent()" mat-fab color="accent" class="mat-fab mat-fab-bottom-right">
     <mat-icon>add</mat-icon>
   </button>
     <mat-card class="full-card">
@@ -9,7 +9,7 @@
         </mat-card-header>
         <div class="example-container">
             <mat-form-field hintLabel="Enter your earnings">
-                <input [disabled]="capitalGains.taxBracketOverride" (keyup)="setTaxBracket(capitalGains.earnings)" (focusout)="setCapitalGains()" type="number" matInput [(ngModel)]="capitalGains.earnings" placeholder="Earnings">
+                <input [disabled]="capitalGains.taxBracketOverride" (keyup)="capitalGains.setTaxBracket()" (focusout)="setCapitalGains()" type="number" matInput [(ngModel)]="capitalGains.earnings" placeholder="Earnings">
                 <mat-icon matTooltip="This will be used to calulate your taxation rate" matSuffix>help_outline</mat-icon>
             </mat-form-field>
 
@@ -20,7 +20,7 @@
         <div class="example-container">
             <mat-form-field>
                 <mat-select placeholder="Tax Bracket" [(ngModel)]="capitalGains.select" [disabled]="!capitalGains.taxBracketOverride">
-                    <mat-option *ngFor="let brack of taxBracketsObj.taxBrackets" [(value)]="brack.taxableIncome">
+                    <mat-option *ngFor="let brack of capitalGains.taxBrackets.taxBrackets" [(value)]="brack.taxableIncome">
                         {{brack.taxableIncome}}
                     </mat-option>
                 </mat-select>
@@ -107,7 +107,7 @@
             </button>
                         <span class="flex-spacer"></span>
                         <span>
-              <button mat-raised-button matStepperNext (click)="cevent.calculateIndividualResultingEvent()">
+              <button mat-raised-button matStepperNext (click)="capitalGains.calculateIndividualResultingEvent(event)">
                 <mat-icon>keyboard_arrow_right</mat-icon>
               </button>
             </span>
@@ -116,7 +116,7 @@
                 </div>
             </mat-step>
 
-            <mat-step label="Resulting Capital Gain" (click)="event.calculateIndividualResultingEvent()">
+            <mat-step label="Resulting Capital Gain" (click)="capitalGains.calculateIndividualResultingEvent(event)">
                 <div class="mat-table">
                     <h5>Purchase Details</h5>
                     <div class="mat-row-container">
@@ -179,7 +179,7 @@
             </mat-step>
         </mat-horizontal-stepper>
         <mat-card-footer>
-            <button [disabled]="capitalGains.events.length <= 1" mat-raised-button color="warn" (click)="removeEvent(event)">Cancel</button>
+            <button [disabled]="capitalGains.events.length <= 1" mat-raised-button color="warn" (click)="capitalGains.removeEvent(event)">Cancel</button>
         </mat-card-footer>
     </mat-card>
 

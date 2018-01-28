@@ -21,6 +21,7 @@ export class TaxBrackets {
 
   //A crappy way to add the array
   public setupTaxBrackets() {
+    this.taxBrackets = new Array<TaxBracket>();
     var tb1 = new TaxBracket();
     tb1.taxableIncome = "0 – $18,200";
     tb1.taxOnThisIncome = "Nil";

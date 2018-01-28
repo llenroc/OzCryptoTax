@@ -51,7 +51,6 @@ import { ThemeStorageService } from './services/theme-storage/theme-storage.serv
 //Routing
 import { AppRoutingModule } from './app-routing.module';
 
-import { Wallet } from './shared/classes/wallet';
 import { HistoryComponent } from './pages/history/history.component';
 import { ThemePickerComponent } from './shared/theme-picker/theme-picker';
 import { HelpComponent } from './pages/help/help.component';

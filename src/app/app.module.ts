@@ -38,6 +38,7 @@ import { AppComponent } from './app.component';
 import { HomeComponent } from './pages/home/home.component';
 import { AboutComponent } from './pages/about/about.component';
 import { CalculatorComponent } from './pages/calculator/calculator.component';
+import { ProCalculatorComponent } from './pages/pro-calculator/pro-calculator.component';
 import { DonateComponent } from './pages/donate/donate.component';
 
 //Shared
@@ -64,6 +65,7 @@ import { HelpComponent } from './pages/help/help.component';
     AboutComponent,
     NavbarComponent,
     CalculatorComponent,
+    ProCalculatorComponent,
     DonateComponent,
     HistoryComponent,
     ThemePickerComponent,

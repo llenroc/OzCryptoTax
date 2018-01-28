@@ -1,7 +1,4 @@
 <div class="content-container">
-  <button matTooltip="Add Capital Gain Event" (click)="capitalGains.addEvent()" mat-fab color="accent" class="mat-fab mat-fab-bottom-right">
-    <mat-icon>add</mat-icon>
-  </button>
   <mat-card class="full-card">
     <mat-card-header>
       <mat-card-title>Total Earnings</mat-card-title>
@@ -34,6 +31,90 @@
     </div>
   </mat-card>
 
+  <mat-card class="full-card">
+    <mat-card-header>
+      <mat-card-title>Purchase events</mat-card-title>
+      <mat-card-subtitle>Detail each purchase transaction</mat-card-subtitle>
+    </mat-card-header>
+    <button mat-raised-button color="primary" (click)="capitalGains.addEvent()" >Add transaction</button>
+    <div  *ngFor="let event of capitalGains.events">
+      <div class="example-container">
+        <mat-form-field hintLabel="AUD price of 1 bitcoin at time of purchase">
+          <mat-icon matPrefix>attach_money</mat-icon>
+          <input type="number" [(ngModel)]="event.bought.singleCost" (focusout)="setCapitalGains()" matInput placeholder="Individual cost"
+            required>
+        </mat-form-field>
+
+        <mat-form-field hintLabel="Amount of bitcoin purchased">
+          <input type="number" [(ngModel)]="event.bought.quantity" (focusout)="setCapitalGains()" matInput placeholder="Quantity purchased"
+            required>
+        </mat-form-field>
+
+        <mat-form-field hintLabel="Choose a date">
+          <input matInput [(ngModel)]="event.bought.date" [matDatepicker]="pickerBought" (focusout)="setCapitalGains()" placeholder="Date purchased"
+            required>
+          <mat-datepicker-toggle matSuffix [for]="pickerBought"></mat-datepicker-toggle>
+          <mat-datepicker #pickerBought></mat-datepicker>
+        </mat-form-field>
+
+        <mat-form-field>
+          <mat-icon matPrefix>attach_money</mat-icon>
+          <input type="number" disabled="disabled"  [ngModel]="event.bought.quantity * event.bought.singleCost" matInput placeholder="Total bought (AUD)">
+        </mat-form-field>
+
+          <button mat-button (click)="capitalGains.removeEvent(event)" color="warn" [disabled]="capitalGains.events.length <= 1">Remove</button>
+      </div>
+    </div>
+    </mat-card>
+
+    <mat-card class="full-card">
+      <mat-card-header>
+        <mat-card-title>Sell events</mat-card-title>
+        <mat-card-subtitle>Detail every sell transaction</mat-card-subtitle>
+      </mat-card-header>
+      <button mat-raised-button color="primary" (click)="addSell()" >Add sell event</button>
+      <div  *ngFor="let sellEvent of sellEvents">
+        <div class="example-container">
+            <mat-form-field>
+                <mat-select placeholder="Purchase event" >
+                  <mat-option *ngFor="let event of capitalGains.events" [(value)]="sellEvent.purchaseEvent">
+                      {{event.bought.date | date: 'dd/MM/yyyy'}} - ${{event.bought.quantity * event.bought.singleCost}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+              </div>
+              <div class="example-container">
+
+              <mat-form-field hintLabel="AUD price of 1 bitcoin at time of sale">
+                  <mat-icon matPrefix>attach_money</mat-icon>
+                  <input type="number" [(ngModel)]="sellEvent.singleCost" (focusout)="setCapitalGains()" matInput placeholder="Individual cost"
+                    required>
+                </mat-form-field>
+    
+                <mat-form-field hintLabel="Amount of bitcoin sold">
+                  <input type="number" [(ngModel)]="sellEvent.quantity" (focusout)="setCapitalGains()" matInput placeholder="Quantity sold"
+                    required>
+                </mat-form-field>
+    
+                
+    
+                <mat-form-field hintLabel="Choose a date">
+                  <input matInput [(ngModel)]="sellEvent.date" [matDatepicker]="pickerSold" (focusout)="setCapitalGains()" placeholder="Date sold"
+                    required>
+                  <mat-datepicker-toggle matSuffix [for]="pickerSold"></mat-datepicker-toggle>
+                  <mat-datepicker #pickerSold></mat-datepicker>
+                </mat-form-field>
+
+                <mat-form-field>
+                    <mat-icon matPrefix>attach_money</mat-icon>
+                    <input type="number" disabled="disabled" [ngModel]="sellEvent.quantity * sellEvent.singleCost" matInput placeholder="Total sold (AUD)">
+                  </mat-form-field>
+          <button mat-button (click)="removeSell()" color="warn" >Remove</button>
+                  
+          </div>
+          </div>
+      </mat-card>
+    
 
   <mat-card class="full-card" *ngFor="let event of capitalGains.events">
     <mat-card-header>

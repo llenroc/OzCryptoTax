@@ -1,6 +1,7 @@
 import { HomeComponent } from './pages/home/home.component';
 import { AboutComponent } from './pages/about/about.component';
 import { CalculatorComponent } from './pages/calculator/calculator.component';
+import { ProCalculatorComponent } from './pages/pro-calculator/pro-calculator.component';
 import { DonateComponent } from './pages/donate/donate.component';
 import { HistoryComponent } from './pages/history/history.component';
 import { HelpComponent } from 'app/pages/help/help.component';
@@ -20,6 +21,10 @@ const routes: Routes = [
     {
         path:'calculator',
         component: CalculatorComponent
+    },
+     {
+        path:'pro-calculator',
+        component: ProCalculatorComponent
     },
     {
         path: 'donate',

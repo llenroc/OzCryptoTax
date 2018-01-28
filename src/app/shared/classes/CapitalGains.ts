@@ -1,4 +1,3 @@
-
 import {CapitalGainEvent} from '../../shared/classes/CapitalGainEvent';
 import {FinalResult} from '../../shared/classes/FinalResult';
 import {PurchaseSellDetails} from '../../shared/classes/PurchaseSellDetails';
@@ -121,7 +120,7 @@ export class CapitalGains {
   
         gain.result.remaining = gain.bought.quantity - gain.sold.quantity;
         gain.result.isValid = true;
-    //gain.setCapitalGains();
+      //gain.setCapitalGains();
       } else {
         gain.result.gain = -1;
         gain.result.remaining = -1;

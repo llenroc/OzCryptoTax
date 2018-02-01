@@ -79,16 +79,17 @@ export class CalculatorComponent implements OnInit {
     var localStorageItem = localStorage.getItem('capitalGains');
     var what = <CapitalGains>JSON.parse(localStorageItem);
     this.capitalGains = this.fromJSON(what);
-
+/*
     if (this.capitalGains) {
       this.loadedFromStorage = true;
-      this.capitalGains.events = <Array<CapitalGainEvent>>this.capitalGains.events;
-      for (var i = 0; i < this.capitalGains.events.length; i++) {
-        this.capitalGains.calculateIndividualResultingEvent(this.capitalGains.events[i])
+      this.capitalGains.buyEvents = <Array<CapitalGainEvent>>this.capitalGains.buyEvents;
+      for (var i = 0; i < this.capitalGains.buyEvents.length; i++) {
+        this.capitalGains.calculateIndividualResultingEvent(this.capitalGains.buyEvents[i])
       }
     } else {
       this.loadedFromStorage = false;
       this.capitalGains = new CapitalGains();
     }
+    */
   }
 }

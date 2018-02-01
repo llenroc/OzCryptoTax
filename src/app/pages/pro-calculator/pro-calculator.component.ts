@@ -43,7 +43,6 @@ export class ProCalculatorComponent implements OnInit {
   public taxBracketsObj: TaxBrackets = new TaxBrackets();
   public capitalGains: CapitalGains = new CapitalGains();
   public loadedFromStorage: boolean = false;
-  public sellEvents: SellEventHolder[] = [];
 
 
   constructor() {
@@ -55,18 +54,6 @@ export class ProCalculatorComponent implements OnInit {
       this.capitalGains = new CapitalGains();
     }
       this.capitalGains.setTaxBracket();
-  }
-
-  public addSell() {
-    var event: SellEventHolder;
-    event = new SellEventHolder();
-    event.details = new PurchaseSellDetails();
-    event.event = new CapitalGainEvent();
-    this.sellEvents.push(event);
-  }
-
-  public removeSell(event) {
-    this.sellEvents.splice(this.sellEvents.indexOf(event), 1);
   }
 
   ngOnInit() {}
@@ -93,26 +80,21 @@ export class ProCalculatorComponent implements OnInit {
     var what = <CapitalGains>JSON.parse(localStorageItem);
     this.capitalGains = this.fromJSON(what);
 
-    if (this.capitalGains) {
+    if (this.capitalGains && this.capitalGains.earnings > 0) {
       this.loadedFromStorage = true;
       this.capitalGains.events = <Array<CapitalGainEvent>>this.capitalGains.events;
-      for (var i = 0; i < this.capitalGains.events.length; i++) {
-        this.capitalGains.calculateIndividualResultingEvent(this.capitalGains.events[i])
+      if (this.capitalGains.events) {
+        for (var i = 0; i < this.capitalGains.events.length; i++) {
+          this.capitalGains.calculateIndividualResultingEvent(this.capitalGains.events[i])
+        }
       }
+      if (this.capitalGains.buyEvents) {
+        this.capitalGains.buyEvents = <Array<PurchaseSellDetails>>this.capitalGains.buyEvents;
+      }  
+
     } else {
       this.loadedFromStorage = false;
       this.capitalGains = new CapitalGains();
     }
-  }
-}
-
-
-
-export class SellEventHolder {
-  public event: CapitalGainEvent;
-  public details: PurchaseSellDetails;
-
-  public SellEventHolder() {
-    this.details = new PurchaseSellDetails();
   }
 }

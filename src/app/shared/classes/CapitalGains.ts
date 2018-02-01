@@ -15,7 +15,8 @@ export class CapitalGains {
     public taxableIncome: number=0;
     public isValid: boolean = false;
     public totalGains: FinalResult = new FinalResult();
-    public events: CapitalGainEvent[] = [new CapitalGainEvent()];
+    public events: CapitalGainEvent[] = [];
+    public buyEvents: PurchaseSellDetails[] = [new PurchaseSellDetails()];
 
     
 
@@ -25,6 +26,14 @@ export class CapitalGains {
 
   public removeEvent(event: any) {
     this.events.splice(this.events.indexOf(event), 1);
+  }
+
+  public addBuyEvent() {
+    this.buyEvents.push(new PurchaseSellDetails());
+  }
+
+  public removeBuyEvent(event: any) {
+    this.buyEvents.splice(this.buyEvents.indexOf(event), 1);
   }
 
   

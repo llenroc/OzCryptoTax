@@ -36,9 +36,9 @@
       <mat-card-title>Purchase events</mat-card-title>
       <mat-card-subtitle>Detail each purchase transaction</mat-card-subtitle>
     </mat-card-header>
-    <button mat-raised-button color="primary" (click)="capitalGains.addEvent()" >Add transaction</button>
-    <div  *ngFor="let event of capitalGains.events">
-      <div class="example-container">
+    <button mat-raised-button color="primary" (click)="capitalGains.addEvent()">Add transaction</button>
+    <div class="purchase-event" *ngFor="let event of capitalGains.events">
+      <div class="example-container  ">
         <mat-form-field hintLabel="AUD price of 1 bitcoin at time of purchase">
           <mat-icon matPrefix>attach_money</mat-icon>
           <input type="number" [(ngModel)]="event.bought.singleCost" (focusout)="setCapitalGains()" matInput placeholder="Individual cost"
@@ -59,217 +59,56 @@
 
         <mat-form-field>
           <mat-icon matPrefix>attach_money</mat-icon>
-          <input type="number" disabled="disabled"  [ngModel]="event.bought.quantity * event.bought.singleCost" matInput placeholder="Total bought (AUD)">
+          <input type="number" disabled="disabled" [ngModel]="event.bought.quantity * event.bought.singleCost" matInput placeholder="Total bought (AUD)">
         </mat-form-field>
 
-          <button mat-button (click)="capitalGains.removeEvent(event)" color="warn" [disabled]="capitalGains.events.length <= 1">Remove</button>
+        <button mat-button (click)="capitalGains.removeEvent(event)" color="warn" [disabled]="capitalGains.events.length <= 1">Remove</button>
       </div>
     </div>
-    </mat-card>
+  </mat-card>
 
-    <mat-card class="full-card">
+
+  <mat-card class="full-card">
       <mat-card-header>
         <mat-card-title>Sell events</mat-card-title>
-        <mat-card-subtitle>Detail every sell transaction</mat-card-subtitle>
+        <mat-card-subtitle>Detail each purchase transaction</mat-card-subtitle>
       </mat-card-header>
-      <button mat-raised-button color="primary" (click)="addSell()" >Add sell event</button>
-      <div  *ngFor="let sellEvent of sellEvents">
-        <div class="example-container">
-            <mat-form-field>
-                <mat-select placeholder="Purchase event" >
-                  <mat-option *ngFor="let event of capitalGains.events" [(value)]="sellEvent.purchaseEvent">
-                      {{event.bought.date | date: 'dd/MM/yyyy'}} - ${{event.bought.quantity * event.bought.singleCost}}
-                  </mat-option>
-                </mat-select>
-              </mat-form-field>
-              </div>
-              <div class="example-container">
+      <button mat-raised-button color="primary" (click)="addSell()">Add sell</button>
+    <div class="purchase-event" *ngFor="let sellEvent of sellEvents">
+      <div class="example-container" >
 
-              <mat-form-field hintLabel="AUD price of 1 bitcoin at time of sale">
-                  <mat-icon matPrefix>attach_money</mat-icon>
-                  <input type="number" [(ngModel)]="sellEvent.singleCost" (focusout)="setCapitalGains()" matInput placeholder="Individual cost"
-                    required>
-                </mat-form-field>
-    
-                <mat-form-field hintLabel="Amount of bitcoin sold">
-                  <input type="number" [(ngModel)]="sellEvent.quantity" (focusout)="setCapitalGains()" matInput placeholder="Quantity sold"
-                    required>
-                </mat-form-field>
-    
-                
-    
-                <mat-form-field hintLabel="Choose a date">
-                  <input matInput [(ngModel)]="sellEvent.date" [matDatepicker]="pickerSold" (focusout)="setCapitalGains()" placeholder="Date sold"
-                    required>
-                  <mat-datepicker-toggle matSuffix [for]="pickerSold"></mat-datepicker-toggle>
-                  <mat-datepicker #pickerSold></mat-datepicker>
-                </mat-form-field>
+        <mat-form-field>
+          <mat-select placeholder="Purchase event" [(ngModel)]="sellEvent.event">
+            <mat-option *ngFor="let event of capitalGains.events" [(value)]="event.bought.date">
+              {{event.bought.date | date: 'dd/MM/yyyy'}} - ${{event.bought.quantity * event.bought.singleCost}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
 
-                <mat-form-field>
-                    <mat-icon matPrefix>attach_money</mat-icon>
-                    <input type="number" disabled="disabled" [ngModel]="sellEvent.quantity * sellEvent.singleCost" matInput placeholder="Total sold (AUD)">
-                  </mat-form-field>
-          <button mat-button (click)="removeSell()" color="warn" >Remove</button>
-                  
-          </div>
-          </div>
-      </mat-card>
-    
+        <mat-form-field hintLabel="AUD price of 1 bitcoin at time of sale">
+          <mat-icon matPrefix>attach_money</mat-icon>
+          <input type="number" [(ngModel)]="sellEvent.details.singleCost" (focusout)="setCapitalGains()" matInput placeholder="Individual cost"
+            required>
+        </mat-form-field>
 
-  <mat-card class="full-card" *ngFor="let event of capitalGains.events">
-    <mat-card-header>
-      <mat-card-title>Capital Gain Event</mat-card-title>
-      <mat-card-subtitle>Document a single sell transaction</mat-card-subtitle>
-    </mat-card-header>
-    <mat-horizontal-stepper [linear]="linear" [selectedIndex]="loadedFromStorage && event.result.isValid ? 2 : 0">
-      <mat-step label="Purchase details">
-        <div>
-          <div class="example-container">
-            <mat-form-field hintLabel="AUD price of 1 bitcoin at time of purchase">
-              <mat-icon matPrefix>attach_money</mat-icon>
-              <input type="number" [(ngModel)]="event.bought.singleCost" (focusout)="setCapitalGains()" matInput placeholder="Individual cost"
-                required>
-              <mat-icon matTooltip="This information is required by the ATO" matSuffix>help_outline</mat-icon>
-            </mat-form-field>
+        <mat-form-field hintLabel="Amount of bitcoin sold">
+          <input type="number" [(ngModel)]="sellEvent.details.quantity" (focusout)="setCapitalGains()" matInput placeholder="Quantity sold"
+            required>
+        </mat-form-field>
 
-            <mat-form-field hintLabel="Amount of bitcoin purchased">
-              <input type="number" [(ngModel)]="event.bought.quantity" (focusout)="setCapitalGains()" matInput placeholder="Quantity purchased"
-                required>
-              <mat-icon matTooltip="Something" matSuffix>help_outline</mat-icon>
-            </mat-form-field>
+        <mat-form-field hintLabel="Choose a date">
+          <input matInput [(ngModel)]="sellEvent.details.date" [matDatepicker]="pickerSold" (focusout)="setCapitalGains()" placeholder="Date sold"
+            required>
+          <mat-datepicker-toggle matSuffix [for]="pickerSold"></mat-datepicker-toggle>
+          <mat-datepicker #pickerSold></mat-datepicker>
+        </mat-form-field>
 
-            <mat-form-field>
-              <mat-icon matPrefix>attach_money</mat-icon>
-              <input type="number" disabled="disabled" [ngModel]="event.bought.quantity * event.bought.singleCost" matInput placeholder="Total bought (AUD)">
-            </mat-form-field>
+        <button mat-button (click)="removeSell(sellEvent)" color="warn">Remove</button>
 
-            <mat-form-field hintLabel="Choose a date">
-              <input matInput [(ngModel)]="event.bought.date" [matDatepicker]="pickerBought" (focusout)="setCapitalGains()" placeholder="Date purchased"
-                required>
-              <mat-datepicker-toggle matSuffix [for]="pickerBought"></mat-datepicker-toggle>
-              <mat-datepicker #pickerBought></mat-datepicker>
-            </mat-form-field>
-          </div>
-          <div class="flexer one-margin">
-            <span class="flex-spacer"></span>
-            <span>
-              <button mat-raised-button matStepperNext>
-                <mat-icon>keyboard_arrow_right</mat-icon>
-              </button>
-            </span>
-          </div>
-        </div>
-      </mat-step>
-
-      <mat-step label="Sell details">
-        <div>
-          <div class="example-container">
-            <mat-form-field hintLabel="AUD price of 1 bitcoin at time of sale">
-              <mat-icon matPrefix>attach_money</mat-icon>
-              <input type="number" [(ngModel)]="event.sold.singleCost" (focusout)="setCapitalGains()" matInput placeholder="Individual cost"
-                required>
-              <mat-icon matTooltip="Something" matSuffix>help_outline</mat-icon>
-            </mat-form-field>
-
-            <mat-form-field hintLabel="Amount of bitcoin sold">
-              <input type="number" [(ngModel)]="event.sold.quantity" (focusout)="setCapitalGains()" matInput placeholder="Quantity sold"
-                required>
-              <mat-icon matTooltip="Something" matSuffix>help_outline</mat-icon>
-            </mat-form-field>
-
-            <mat-form-field>
-              <mat-icon matPrefix>attach_money</mat-icon>
-              <input type="number" disabled="disabled" [ngModel]="event.sold.quantity * event.sold.singleCost" matInput placeholder="Total sold (AUD)">
-            </mat-form-field>
-
-            <mat-form-field hintLabel="Choose a date">
-              <input matInput [(ngModel)]="event.sold.date" [matDatepicker]="pickerSold" (focusout)="setCapitalGains()" placeholder="Date sold"
-                required>
-              <mat-datepicker-toggle matSuffix [for]="pickerSold"></mat-datepicker-toggle>
-              <mat-datepicker #pickerSold></mat-datepicker>
-            </mat-form-field>
-          </div>
-          <div class="flexer one-margin">
-            <button mat-raised-button matStepperPrevious>
-              <mat-icon>keyboard_arrow_left</mat-icon>
-            </button>
-            <span class="flex-spacer"></span>
-            <span>
-              <button mat-raised-button matStepperNext (click)="capitalGains.calculateIndividualResultingEvent(event)">
-                <mat-icon>keyboard_arrow_right</mat-icon>
-              </button>
-            </span>
-          </div>
-
-        </div>
-      </mat-step>
-
-      <mat-step label="Resulting Capital Gain" (click)="capitalGains.calculateIndividualResultingEvent(event)">
-        <div class="mat-table">
-          <h5>Purchase Details</h5>
-          <div class="mat-row-container">
-
-            <div class="mat-header-row">
-              <div class="mat-header-cell">Date Bought</div>
-              <div class="mat-header-cell">Amount Purchased</div>
-              <div class="mat-header-cell">Purchase cost each</div>
-              <div class="mat-header-cell">Purchase cost total</div>
-            </div>
-
-            <div class="mat-row">
-              <div class="mat-cell">{{event.bought.date | date: 'dd/MM/yyyy'}}</div>
-              <div class="mat-cell">{{event.bought.quantity}}</div>
-              <div class="mat-cell">{{event.bought.singleCost}}</div>
-              <div class="mat-cell">{{event.bought.singleCost * event.bought.quantity}}</div>
-            </div>
-          </div>
-          <h5>Sell Details</h5>
-          <div class="mat-row-container">
-            <div class="mat-header-row">
-              <div class="mat-header-cell">Date Sold</div>
-              <div class="mat-header-cell">Amount Sold</div>
-              <div class="mat-header-cell">Sell cost each</div>
-              <div class="mat-header-cell">Sell cost total</div>
-            </div>
-
-            <div class="mat-row">
-              <div class="mat-cell">{{event.sold.date | date: 'dd/MM/yyyy'}}</div>
-              <div class="mat-cell">{{event.sold.quantity}}</div>
-              <div class="mat-cell">{{event.sold.singleCost}}</div>
-              <div class="mat-cell">{{event.sold.singleCost * event.bought.quantity}}</div>
-            </div>
-          </div>
-          <h5>Capital Gains</h5>
-          <div class="mat-row-gain">
-
-            <div class="mat-header-row">
-              <div class="mat-header-cell bold">Remaining Coins</div>
-              <div class="mat-header-cell bold">Capital Gain Amount</div>
-              <div class="mat-header-cell bold">Capital Gain Discount</div>
-              <div class="mat-header-cell bold">Taxable Capital Gain Amount</div>
-            </div>
-
-            <div class="mat-row">
-              <div class="mat-cell bold">{{event.result.remaining}}</div>
-              <div class="mat-cell bold">{{event.result.gain}}</div>
-              <div class="mat-cell bold">{{event.result.discount}}</div>
-              <div class="mat-cell bold">{{event.result.taxableGain}}</div>
-
-            </div>
-          </div>
-        </div>
-
-        <div class="one-margin">
-          <button mat-raised-button matStepperPrevious>
-            <mat-icon>keyboard_arrow_left</mat-icon>
-          </button>
-        </div>
-      </mat-step>
-    </mat-horizontal-stepper>
-    <mat-card-footer>
-      <button [disabled]="capitalGains.events.length <= 1" mat-raised-button color="warn" (click)="capitalGains.removeEvent(event)">Cancel</button>
-    </mat-card-footer>
+      </div>
+    </div>
   </mat-card>
+
 
   <mat-card class="full-card">
 
@@ -327,62 +166,62 @@
       </mat-form-field>
     </div>
 
-    
 
-  <mat-accordion>
-    <mat-expansion-panel >
-      <mat-expansion-panel-header>
-        <mat-panel-title>
-          Detailed breakdown
-        </mat-panel-title>
-      </mat-expansion-panel-header>
-      <div class="mat-row-container">
-        <div class="mat-table">
-          <div class="mat-header-row">
-            <div class="mat-header-cell">Date Bought</div>
-            <div class="mat-header-cell">Amount Purchased</div>
-            <div class="mat-header-cell">Purchase cost each</div>
-            <div class="mat-header-cell">Purchase cost total</div>
-            <div class="mat-header-cell">Date Sold</div>
-            <div class="mat-header-cell">Amount Sold</div>
-            <div class="mat-header-cell">Sell cost each</div>
-            <div class="mat-header-cell">Sell cost total</div>
-            <div class="mat-header-cell">Remaining</div>
-            <div class="mat-header-cell">Capital Gain Discount</div>
-            <div class="mat-header-cell">Capital Gain Amount</div>
-          </div>
-          <div class="mat-row" *ngFor="let event of capitalGains.events">
-            <div class="mat-cell">{{event.bought.date | date: 'dd/MM/yyyy'}}</div>
-            <div class="mat-cell">{{event.bought.quantity}}</div>
-            <div class="mat-cell">{{event.bought.singleCost}}</div>
-            <div class="mat-cell">{{event.bought.singleCost * event.bought.quantity}}</div>
-            <div class="mat-cell">{{event.sold.date | date: 'dd/MM/yyyy'}}</div>
-            <div class="mat-cell">{{event.sold.quantity}}</div>
-            <div class="mat-cell">{{event.sold.singleCost}}</div>
-            <div class="mat-cell">{{event.sold.singleCost * event.bought.quantity}}</div>
-            <div class="mat-cell">{{event.result.remaining}}</div>
-            <div class="mat-cell">{{event.result.discount}}</div>
-            <div class="mat-cell">{{event.result.taxableGain}}</div>
 
+    <mat-accordion>
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Detailed breakdown
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <div class="mat-row-container">
+          <div class="mat-table">
+            <div class="mat-header-row">
+              <div class="mat-header-cell">Date Bought</div>
+              <div class="mat-header-cell">Amount Purchased</div>
+              <div class="mat-header-cell">Purchase cost each</div>
+              <div class="mat-header-cell">Purchase cost total</div>
+              <div class="mat-header-cell">Date Sold</div>
+              <div class="mat-header-cell">Amount Sold</div>
+              <div class="mat-header-cell">Sell cost each</div>
+              <div class="mat-header-cell">Sell cost total</div>
+              <div class="mat-header-cell">Remaining</div>
+              <div class="mat-header-cell">Capital Gain Discount</div>
+              <div class="mat-header-cell">Capital Gain Amount</div>
+            </div>
+            <div class="mat-row" *ngFor="let event of capitalGains.events">
+              <div class="mat-cell">{{event.bought.date | date: 'dd/MM/yyyy'}}</div>
+              <div class="mat-cell">{{event.bought.quantity}}</div>
+              <div class="mat-cell">{{event.bought.singleCost}}</div>
+              <div class="mat-cell">{{event.bought.singleCost * event.bought.quantity}}</div>
+              <div class="mat-cell">{{event.sold.date | date: 'dd/MM/yyyy'}}</div>
+              <div class="mat-cell">{{event.sold.quantity}}</div>
+              <div class="mat-cell">{{event.sold.singleCost}}</div>
+              <div class="mat-cell">{{event.sold.singleCost * event.bought.quantity}}</div>
+              <div class="mat-cell">{{event.result.remaining}}</div>
+              <div class="mat-cell">{{event.result.discount}}</div>
+              <div class="mat-cell">{{event.result.taxableGain}}</div>
+
+            </div>
           </div>
         </div>
-      </div>
 
-    </mat-expansion-panel>
+      </mat-expansion-panel>
 
-    <mat-expansion-panel>
-      <mat-expansion-panel-header>
-        <mat-panel-title>
-          Really detailed breakdown
-        </mat-panel-title>
-      </mat-expansion-panel-header>
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Really detailed breakdown
+          </mat-panel-title>
+        </mat-expansion-panel-header>
 
-      <div class="example-container">
+        <div class="example-container">
 
-      </div>
+        </div>
 
-    </mat-expansion-panel>
-  </mat-accordion>
+      </mat-expansion-panel>
+    </mat-accordion>
 
   </mat-card>
 

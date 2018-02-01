@@ -52,6 +52,12 @@
     }
 }
 
+
+.full-card .purchase-event:nth-child(even) {
+    background: rgba($color: #000000, $alpha: 0.1);
+}
+
+
 .mat-cell,
 .mat-header-cell {
     flex: 1;

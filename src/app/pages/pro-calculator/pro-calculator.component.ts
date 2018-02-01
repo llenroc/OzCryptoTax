@@ -43,7 +43,7 @@ export class ProCalculatorComponent implements OnInit {
   public taxBracketsObj: TaxBrackets = new TaxBrackets();
   public capitalGains: CapitalGains = new CapitalGains();
   public loadedFromStorage: boolean = false;
-  public sellEvents: any[] = [];
+  public sellEvents: SellEventHolder[] = [];
 
 
   constructor() {
@@ -58,11 +58,15 @@ export class ProCalculatorComponent implements OnInit {
   }
 
   public addSell() {
-    this.sellEvents.push({});
+    var event: SellEventHolder;
+    event = new SellEventHolder();
+    event.details = new PurchaseSellDetails();
+    event.event = new CapitalGainEvent();
+    this.sellEvents.push(event);
   }
 
-  public removeSell() {
-    this.sellEvents.splice(0,1);
+  public removeSell(event) {
+    this.sellEvents.splice(this.sellEvents.indexOf(event), 1);
   }
 
   ngOnInit() {}
@@ -99,5 +103,16 @@ export class ProCalculatorComponent implements OnInit {
       this.loadedFromStorage = false;
       this.capitalGains = new CapitalGains();
     }
+  }
+}
+
+
+
+export class SellEventHolder {
+  public event: CapitalGainEvent;
+  public details: PurchaseSellDetails;
+
+  public SellEventHolder() {
+    this.details = new PurchaseSellDetails();
   }
 }

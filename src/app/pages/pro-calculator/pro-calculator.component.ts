@@ -82,10 +82,10 @@ export class ProCalculatorComponent implements OnInit {
 
     if (this.capitalGains && this.capitalGains.earnings > 0) {
       this.loadedFromStorage = true;
-      this.capitalGains.events = <Array<CapitalGainEvent>>this.capitalGains.events;
-      if (this.capitalGains.events) {
-        for (var i = 0; i < this.capitalGains.events.length; i++) {
-          this.capitalGains.calculateIndividualResultingEvent(this.capitalGains.events[i])
+      this.capitalGains.realisedEvents = <Array<CapitalGainEvent>>this.capitalGains.realisedEvents;
+      if (this.capitalGains.realisedEvents) {
+        for (var i = 0; i < this.capitalGains.realisedEvents.length; i++) {
+          this.capitalGains.calculateIndividualResultingEvent(this.capitalGains.realisedEvents[i])
         }
       }
       if (this.capitalGains.buyEvents) {

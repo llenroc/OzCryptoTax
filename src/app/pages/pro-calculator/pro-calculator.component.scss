@@ -22,6 +22,16 @@
     margin: 1rem;
 }
 
+.fifty-container {
+    display: flex;
+    flex-direction: row;
+}
+
+.fifty-container>* {
+    width: 50%;
+    margin: 1rem;
+}
+
 .mat-table {
     display: block;
     width: 100%;

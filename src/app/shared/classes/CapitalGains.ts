@@ -15,40 +15,19 @@ export class CapitalGains {
     public taxableIncome: number=0;
     public isValid: boolean = false;
     public totalGains: FinalResult = new FinalResult();
-    public events: CapitalGainEvent[] = [];
+    public realisedEvents: CapitalGainEvent[] = [];
     public buyEvents: PurchaseSellDetails[] = [new PurchaseSellDetails()];
+    public sellEvents: PurchaseSellDetails[] = [];
     public isValidSellEvent : boolean = true;
 
     
 
   public addEvent() {
-    this.events.push(new CapitalGainEvent());
-  }
-
-  public addEventIfSellIsValid(event:CapitalGainEvent) {
-    if(event.sold.quantity > 0 && event.sold.quantity <= event.bought.quantity
-      && event.sold.singleCost > 0)
-    {
-      //sell event is valid
-      if(event.sold.quantity < event.bought.quantity) {
-        //remaining can be turned into new buy event
-        var buyEvent : PurchaseSellDetails = new PurchaseSellDetails();
-        buyEvent.date = event.bought.date;
-        buyEvent.singleCost = event.bought.singleCost;
-        buyEvent.quantity = event.bought.quantity - event.sold.quantity;
-        buyEvent.isHidden = true;
-        this.buyEvents.push(buyEvent);
-      }
-      this.events.push(new CapitalGainEvent());
-      this.isValidSellEvent = true;
-      
-    } else {
-      this.isValidSellEvent = false;
-    }
+    this.realisedEvents.push(new CapitalGainEvent());
   }
 
   public removeEvent(event: any) {
-    this.events.splice(this.events.indexOf(event), 1);
+    this.realisedEvents.splice(this.realisedEvents.indexOf(event), 1);
   }
 
   public addBuyEvent() {
@@ -59,6 +38,14 @@ export class CapitalGains {
     this.buyEvents.splice(this.buyEvents.indexOf(event), 1);
   }
 
+
+  public addSellEvent() {
+    this.sellEvents.push(new PurchaseSellDetails());
+  }
+
+  public removeSellEvent(event: any) {
+    this.sellEvents.splice(this.sellEvents.indexOf(event), 1);
+  }
   
     public calculateAllEvents() {
       var income = this.earnings;
@@ -68,11 +55,11 @@ export class CapitalGains {
       var spareCoins = 0;
       this.totalGains.isValid = true;
   
-      for (var i = 0; i < this.events.length; i++) {
+      for (var i = 0; i < this.realisedEvents.length; i++) {
         //Force calculation in case of fuckery
-        this.calculateIndividualResultingEvent(this.events[i]);
+        this.calculateIndividualResultingEvent(this.realisedEvents[i]);
   
-        if (!this.events[i].result.isValid) {
+        if (!this.realisedEvents[i].result.isValid) {
           this.totalGains.taxableIncome = -1;
           this.totalGains.income = -1;
           this.totalGains.gainDiscounts = -1;
@@ -83,11 +70,11 @@ export class CapitalGains {
           this.resultingTaxBracket = this.taxBrackets[5];
           return;
         } else {
-          income += this.events[i].result.gain;
-          taxableIncome += this.events[i].result.taxableGain;
-          capitalGains += this.events[i].result.gain;
-          spareCoins += this.events[i].result.remaining;
-          capitalGainDiscounts += (this.events[i].result.gain - this.events[i].result.taxableGain);
+          income += this.realisedEvents[i].result.gain;
+          taxableIncome += this.realisedEvents[i].result.taxableGain;
+          capitalGains += this.realisedEvents[i].result.gain;
+          spareCoins += this.realisedEvents[i].result.remaining;
+          capitalGainDiscounts += (this.realisedEvents[i].result.gain - this.realisedEvents[i].result.taxableGain);
         }
   
         if (this.totalGains.isValid) {

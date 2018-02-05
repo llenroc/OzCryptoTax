@@ -33,7 +33,8 @@
             <mat-card-subtitle>Detail each purchase transaction</mat-card-subtitle>
         </mat-card-header>
         <button mat-raised-button color="primary" (click)="capitalGains.addBuyEvent()">Add transaction</button>
-        <div class="purchase-event" *ngFor="let event of capitalGains.buyEvents">
+        <div class="purchase-event"  *ngFor="let event of capitalGains.buyEvents">
+          <div *ngIf="!event.isHidden">
             <div class="example-container  ">
                 <mat-form-field hintLabel="AUD price of 1 bitcoin at time of purchase">
                     <mat-icon matPrefix>attach_money</mat-icon>
@@ -57,6 +58,7 @@
 
                 <button mat-button (click)="capitalGains.removeBuyEvent(event)" color="warn" [disabled]="capitalGains.buyEvents.length <= 1">Remove</button>
             </div>
+          </div>
         </div>
     </mat-card>
 
@@ -65,7 +67,6 @@
             <mat-card-title>Sell events</mat-card-title>
             <mat-card-subtitle>Detail each purchase transaction</mat-card-subtitle>
         </mat-card-header>
-        <button mat-raised-button color="primary" (click)="capitalGains.addEvent()">Add sell</button>
         <div class="purchase-event" *ngFor="let sellEvent of capitalGains.events">
             <div class="example-container">
 
@@ -95,6 +96,8 @@
                 <button mat-button (click)="capitalGains.removeEvent(sellEvent)" color="warn">Remove</button>
 
             </div>
+        <button mat-raised-button color="primary" (click)="capitalGains.addEventIfSellIsValid(sellEvent)">Add sell</button>
+            <p [hidden]="!capitalGains.isValidSellEvent" >Sell event is invalid. Please fix before adding another</p>
         </div>
     </mat-card>
 

@@ -17,11 +17,34 @@ export class CapitalGains {
     public totalGains: FinalResult = new FinalResult();
     public events: CapitalGainEvent[] = [];
     public buyEvents: PurchaseSellDetails[] = [new PurchaseSellDetails()];
+    public isValidSellEvent : boolean = true;
 
     
 
   public addEvent() {
     this.events.push(new CapitalGainEvent());
+  }
+
+  public addEventIfSellIsValid(event:CapitalGainEvent) {
+    if(event.sold.quantity > 0 && event.sold.quantity <= event.bought.quantity
+      && event.sold.singleCost > 0)
+    {
+      //sell event is valid
+      if(event.sold.quantity < event.bought.quantity) {
+        //remaining can be turned into new buy event
+        var buyEvent : PurchaseSellDetails = new PurchaseSellDetails();
+        buyEvent.date = event.bought.date;
+        buyEvent.singleCost = event.bought.singleCost;
+        buyEvent.quantity = event.bought.quantity - event.sold.quantity;
+        buyEvent.isHidden = true;
+        this.buyEvents.push(buyEvent);
+      }
+      this.events.push(new CapitalGainEvent());
+      this.isValidSellEvent = true;
+      
+    } else {
+      this.isValidSellEvent = false;
+    }
   }
 
   public removeEvent(event: any) {

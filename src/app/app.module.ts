@@ -33,17 +33,22 @@ import {
   MatTableModule,
 } from '@angular/material';
 
-
 import { AppComponent } from './app.component';
+
+//Pages
 import { HomeComponent } from './pages/home/home.component';
 import { AboutComponent } from './pages/about/about.component';
 import { CalculatorComponent } from './pages/calculator/calculator.component';
 import { ProCalculatorComponent } from './pages/pro-calculator/pro-calculator.component';
 import { DonateComponent } from './pages/donate/donate.component';
+import { HistoryComponent } from './pages/history/history.component';
+import { HelpComponent } from './pages/help/help.component';
 
 //Shared
 import { NavbarComponent } from './shared/navbar/navbar.component';
-//services
+import { ThemePickerComponent } from './shared/theme-picker/theme-picker';
+
+//Services
 import { SidebarService } from './services/sidebar/sidebar.service';
 import { ElectronService } from './providers/electron.service';
 import { StyleManagerService } from './services/style-manager/style-manager.service';
@@ -51,12 +56,6 @@ import { ThemeStorageService } from './services/theme-storage/theme-storage.serv
 
 //Routing
 import { AppRoutingModule } from './app-routing.module';
-
-import { HistoryComponent } from './pages/history/history.component';
-import { ThemePickerComponent } from './shared/theme-picker/theme-picker';
-import { HelpComponent } from './pages/help/help.component';
-
- 
 
 @NgModule({
   declarations: [
@@ -109,6 +108,5 @@ import { HelpComponent } from './pages/help/help.component';
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule {
 
-}
+export class AppModule {}

@@ -24,27 +24,39 @@ export class CapitalGains {
 
   public addEvent() {
     this.realisedEvents.push(new CapitalGainEvent());
+    localStorage.setItem('capitalGains', JSON.stringify(this));
+
   }
 
   public removeEvent(event: any) {
     this.realisedEvents.splice(this.realisedEvents.indexOf(event), 1);
+    localStorage.setItem('capitalGains', JSON.stringify(this));
+
   }
 
   public addBuyEvent() {
     this.buyEvents.push(new PurchaseSellDetails());
+    localStorage.setItem('capitalGains', JSON.stringify(this));
+    
   }
 
   public removeBuyEvent(event: any) {
     this.buyEvents.splice(this.buyEvents.indexOf(event), 1);
+    localStorage.setItem('capitalGains', JSON.stringify(this));
+    
   }
 
 
   public addSellEvent() {
     this.sellEvents.push(new PurchaseSellDetails());
+    localStorage.setItem('capitalGains', JSON.stringify(this));
+    
   }
 
   public removeSellEvent(event: any) {
     this.sellEvents.splice(this.sellEvents.indexOf(event), 1);
+    localStorage.setItem('capitalGains', JSON.stringify(this));
+    
   }
   
     public calculateAllEvents() {

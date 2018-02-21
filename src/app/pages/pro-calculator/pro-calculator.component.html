@@ -1,4 +1,7 @@
 <div class="content-container">
+    <button matTooltip="Add Capital Gain Event" (click)="capitalGains.addEvent()" mat-fab color="accent" class="mat-fab mat-fab-bottom-rightY">
+        <mat-icon>add</mat-icon>
+      </button>
   <mat-card class="full-card">
     <mat-card-header>
       <mat-card-title>Total Earnings</mat-card-title>
@@ -107,14 +110,11 @@
     </div>
   </mat-card>
 
-  <mat-card class="full-card">
+  <mat-card class="full-card"  *ngFor="let event of capitalGains.realisedEvents ">
     <mat-card-header>
-      <mat-card-title>Capital Gain Events</mat-card-title>
-      <mat-card-subtitle>Detail each realised gainn</mat-card-subtitle>
+      <mat-card-title>Capital Gain Event</mat-card-title>
     </mat-card-header>
-    <button mat-raised-button color="primary" (click)="capitalGains.addEvent()">Add realised event</button>
-    <div class="purchase-event" *ngFor="let event of capitalGains.realisedEvents ">
-      <h5>Event</h5>
+    <div class="purchase-event">
       <div class="fifty-container">
         <mat-form-field>
           <mat-select placeholder="Buy event" [ngModel]="event.bought" (ngModelChange)="capitalGains.calculateIndividualResultingEvent(event)" >
@@ -158,18 +158,18 @@
         </div>
       </div>
     </div>
-
+    <mat-card-footer>
+        <button [disabled]="capitalGains.realisedEvents.length <= 1" mat-raised-button color="warn" (click)="capitalGains.removeEvent(event)">Cancel</button>
+      </mat-card-footer>
   </mat-card>
-
 
   <mat-card class="full-card">
-
-    <div class="example-container">
-      <button mat-raised-button color="primary" (click)="capitalGains.calculateAllEvents()"> Calculate!
-        <mat-icon>attach_money</mat-icon>
-      </button>
-    </div>
-  </mat-card>
+      <div class="example-container">
+        <button mat-raised-button color="primary" (click)="capitalGains.calculateAllEvents()"> Calculate!
+          <mat-icon>attach_money</mat-icon>
+        </button>
+      </div>
+    </mat-card>
 
   <mat-card class="full-card" *ngIf="capitalGains.totalGains.isValid">
     <mat-card-header>

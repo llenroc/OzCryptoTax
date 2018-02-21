@@ -35,7 +35,7 @@
   </mat-card>
 
 
-  <mat-card class="full-card" *ngFor="let event of capitalGains.events">
+  <mat-card class="full-card" *ngFor="let event of capitalGains.realisedEvents">
     <mat-card-header>
       <mat-card-title>Capital Gain Event</mat-card-title>
       <mat-card-subtitle>Document a single sell transaction</mat-card-subtitle>
@@ -186,7 +186,7 @@
       </mat-step>
     </mat-horizontal-stepper>
     <mat-card-footer>
-      <button [disabled]="capitalGains.events.length <= 1" mat-raised-button color="warn" (click)="capitalGains.removeEvent(event)">Cancel</button>
+      <button [disabled]="capitalGains.realisedEvents.length <= 1" mat-raised-button color="warn" (click)="capitalGains.removeEvent(event)">Cancel</button>
     </mat-card-footer>
   </mat-card>
 
@@ -204,8 +204,6 @@
       <mat-card-title>Totals Breakdown</mat-card-title>
       <mat-card-subtitle>Get an idea of how much tax you will owe</mat-card-subtitle>
     </mat-card-header>
-
-
 
     <div class="example-container">
       <mat-form-field>
@@ -270,7 +268,7 @@
             <div class="mat-header-cell">Capital Gain Discount</div>
             <div class="mat-header-cell">Capital Gain Amount</div>
           </div>
-          <div class="mat-row" *ngFor="let event of capitalGains.events">
+          <div class="mat-row" *ngFor="let event of capitalGains.realisedEvents">
             <div class="mat-cell">{{event.bought.date | date: 'dd/MM/yyyy'}}</div>
             <div class="mat-cell">{{event.bought.quantity}}</div>
             <div class="mat-cell">{{event.bought.singleCost}}</div>

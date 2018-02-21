@@ -92,6 +92,10 @@ export class ProCalculatorComponent implements OnInit {
         this.capitalGains.buyEvents = <Array<PurchaseSellDetails>>this.capitalGains.buyEvents;
       }  
 
+      if (this.capitalGains.sellEvents) {
+        this.capitalGains.sellEvents = <Array<PurchaseSellDetails>>this.capitalGains.sellEvents;
+      }  
+
     } else {
       this.loadedFromStorage = false;
       this.capitalGains = new CapitalGains();

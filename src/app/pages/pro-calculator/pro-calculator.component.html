@@ -117,18 +117,24 @@
       <h5>Event</h5>
       <div class="fifty-container">
         <mat-form-field>
-          <mat-select placeholder="Buy event" [(ngModel)]="event.bought" (ngModelChange)="capitalGains.calculateIndividualResultingEvent(event)">
+          <mat-select placeholder="Buy event" [ngModel]="event.bought" (ngModelChange)="capitalGains.calculateIndividualResultingEvent(event)" >
             <mat-option *ngFor="let buyEvent of capitalGains.buyEvents" [value]="buyEvent">
-              {{buyEvent.quantity}}
+              Purchased: {{buyEvent.date | date: 'dd/MM/yyyy'}}: Total: ${{buyEvent.singleCost * buyEvent.quantity}}
+            </mat-option>
+            <mat-option [value]="event.bought" style="display: none; height: 0px;">
+              Purchased: {{event.bought.date | date: 'dd/MM/yyyy'}}: Total: ${{event.bought.singleCost * event.bought.quantity}}
             </mat-option>
           </mat-select>
         </mat-form-field>
 
         <mat-form-field>
-          <mat-select placeholder="Sell event" [(ngModel)]="event.sold" (ngModelChange)="capitalGains.calculateIndividualResultingEvent(event)">
+          <mat-select placeholder="Sell event" [ngModel]="event.sold" (ngModelChange)="capitalGains.calculateIndividualResultingEvent(event)">
             <mat-option *ngFor="let sellEvent of capitalGains.sellEvents" [value]="sellEvent">
-              {{sellEvent.quantity}}
+              Sold: {{sellEvent.date | date: 'dd/MM/yyyy'}} Total: ${{sellEvent.singleCost * sellEvent.quantity}}
             </mat-option>
+            <mat-option [value]="event.sold" style="display: none; height: 0px;">
+                Purchased: {{event.sold.date | date: 'dd/MM/yyyy'}}: Total: ${{event.sold.singleCost * event.sold.quantity}}
+              </mat-option>
           </mat-select>
         </mat-form-field>
 

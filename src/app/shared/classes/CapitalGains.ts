@@ -140,6 +140,8 @@ export class CapitalGains {
         gain.result.remaining = gain.bought.quantity - gain.sold.quantity;
         gain.result.isValid = true;
       //gain.setCapitalGains();
+      localStorage.setItem('capitalGains', JSON.stringify(this));
+      
       } else {
         gain.result.gain = -1;
         gain.result.remaining = -1;

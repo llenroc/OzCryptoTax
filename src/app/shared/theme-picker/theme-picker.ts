@@ -18,19 +18,6 @@ export class ThemePickerComponent {
 
   themes = [
     {
-      primary: '#53D06C',
-      accent: '#FFD800',
-      href: 'green-gold-dark.css',
-      isDark: true,
-      isDefault: true,
-    },
-    {
-      primary: '#358444',
-      accent: '#FFFB38',
-      href: 'green-gold.css',
-      isDark: false,
-    },
-    {
       primary: '#673AB7',
       accent: '#FFC107',
       href: 'deeppurple-amber.css',
@@ -41,6 +28,7 @@ export class ThemePickerComponent {
       accent: '#E91E63',
       href: 'indigo-pink.css',
       isDark: false,
+      isDefault: true,
     },
     {
       primary: '#E91E63',
@@ -53,6 +41,18 @@ export class ThemePickerComponent {
       accent: '#4CAF50',
       href: 'purple-green.css',
       isDark: true,
+    },
+    {
+      primary: '#53D06C',
+      accent: '#FFD800',
+      href: 'green-gold-dark.css',
+      isDark: true,
+    },
+    {
+      primary: '#358444',
+      accent: '#FFFB38',
+      href: 'green-gold.css',
+      isDark: false,
     },
     
   ];
@@ -70,7 +70,11 @@ export class ThemePickerComponent {
   installTheme(theme: DocsSiteTheme) {
     this.currentTheme = this._getCurrentThemeFromHref(theme.href);
 
-      this.styleManager.setStyle('theme', `assets/${theme.href}`);
+    if (theme.isDefault) {
+      this.styleManager.removeStyle('theme');
+    } else {
+      this.styleManager.setStyle('theme', `assets/themes/${theme.href}`);
+    }
 
     if (this.currentTheme) {
       this._themeStorage.storeTheme(this.currentTheme);

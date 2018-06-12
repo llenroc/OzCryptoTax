@@ -6,7 +6,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpModule } from '@angular/http';
 import { NgModule, Injectable } from '@angular/core';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormsModule } from '@angular/forms';
 
 import {
   MatButtonModule,
@@ -26,6 +26,8 @@ import {
   MatLineModule,
   MatTooltipModule,
   MatTabsModule,
+  MatSnackBarModule,
+  MatDialogModule,
   MatDatepickerModule,
   MatNativeDateModule,
   MatStepperModule,
@@ -33,6 +35,7 @@ import {
   MatTableModule,
 } from '@angular/material';
 
+//Pages
 import { AppComponent } from './app.component';
 
 //Pages
@@ -70,6 +73,9 @@ import { AppRoutingModule } from './app-routing.module';
     ThemePickerComponent,
     HelpComponent,
   ],
+  entryComponents: [
+    EnabledCurrenciesDialogueComponent
+  ],
   imports: [
     BrowserModule,
     FormsModule,
@@ -93,6 +99,9 @@ import { AppRoutingModule } from './app-routing.module';
     MatLineModule,
     MatTooltipModule,
     MatTabsModule,
+    MatSnackBarModule,
+    MatDialogModule,
+    AmChartsModule,
     MatDatepickerModule,
     MatNativeDateModule,
     MatStepperModule,

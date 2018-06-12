@@ -3,7 +3,6 @@ import { ElectronService } from './providers/electron.service';
 import { MatSidenav } from '@angular/material';
 import { SidebarService } from './services/sidebar/sidebar.service';
 import { Router, NavigationEnd } from '@angular/router';
-
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -11,10 +10,12 @@ import { Router, NavigationEnd } from '@angular/router';
 })
 export class AppComponent {
   sidebarService: SidebarService
-  public currentUrl:string;
+  public currentUrl: string;
   @ViewChild('sidenav') public sidenav: MatSidenav;
+  private ws : WebsocketResponseHandlerService;
+  public isConnected :boolean = false;
   
-  constructor(public electronService: ElectronService,something: SidebarService, private router:Router) {
+  constructor(public electronService: ElectronService, private sbService: SidebarService, private router: Router) {
 
     if (electronService.isElectron()) {
       console.log('Mode electron');
@@ -26,15 +27,8 @@ export class AppComponent {
       console.log('Mode web');
     }
 
-    this.sidebarService = something;
+    this.sidebarService = sbService;
     
-        router.events.subscribe(event => {
-          
-                if (event instanceof NavigationEnd ) {
-                  console.log("current url",event.url); // event.url has current url
-                  this.currentUrl = event.url;
-                }
-              });
   }
 
   ngOnInit() {

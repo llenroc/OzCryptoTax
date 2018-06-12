@@ -1,5 +1,4 @@
 .container {
-    height: 100vh;
     min-height: 100%;
 }
 
@@ -41,7 +40,15 @@
     color: cornflowerblue !important;
 }
 
+.wallet-highlight {
+    color: blueviolet !important;
+}
+
 .help-highlight {
+    color: red !important;
+}
+
+.settings-highlight {
     color: magenta !important;
 }
 

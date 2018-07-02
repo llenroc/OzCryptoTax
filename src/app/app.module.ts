@@ -73,9 +73,6 @@ import { AppRoutingModule } from './app-routing.module';
     ThemePickerComponent,
     HelpComponent,
   ],
-  entryComponents: [
-    EnabledCurrenciesDialogueComponent
-  ],
   imports: [
     BrowserModule,
     FormsModule,
@@ -101,11 +98,9 @@ import { AppRoutingModule } from './app-routing.module';
     MatTabsModule,
     MatSnackBarModule,
     MatDialogModule,
-    AmChartsModule,
     MatDatepickerModule,
     MatNativeDateModule,
     MatStepperModule,
-    ReactiveFormsModule,
     MatSelectModule,
     MatTableModule,
   ],

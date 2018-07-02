@@ -12,7 +12,6 @@ export class AppComponent {
   sidebarService: SidebarService
   public currentUrl: string;
   @ViewChild('sidenav') public sidenav: MatSidenav;
-  private ws : WebsocketResponseHandlerService;
   public isConnected :boolean = false;
   
   constructor(public electronService: ElectronService, private sbService: SidebarService, private router: Router) {
